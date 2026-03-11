@@ -23,6 +23,10 @@ docs/installation/zeabur.md
 web/bun.lock
 plans
 .claude
+.codex
+.cursor
+.kiro
+*.command
 
 electron/node_modules
 electron/dist
