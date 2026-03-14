@@ -27,6 +27,7 @@ const RedemptionsActions = ({
   batchCopyRedemptions,
   batchDeleteSelectedRedemptions,
   batchDeleteRedemptions,
+  selectByName,
   t,
 }) => {
   // Add new redemption code
@@ -55,6 +56,15 @@ const RedemptionsActions = ({
         size='small'
       >
         {t('复制所选兑换码到剪贴板')}
+      </Button>
+
+      <Button
+        type='secondary'
+        className='flex-1 md:flex-initial'
+        onClick={selectByName}
+        size='small'
+      >
+        {t('按名称全选')}
       </Button>
 
       <Button

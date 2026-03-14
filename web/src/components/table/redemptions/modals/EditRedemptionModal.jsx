@@ -26,6 +26,7 @@ import {
   showSuccess,
   renderQuota,
   renderQuotaWithPrompt,
+  renderUnitWithQuota,
 } from '../../../../helpers';
 import { useIsMobile } from '../../../../hooks/common/useIsMobile';
 import {
@@ -41,6 +42,7 @@ import {
   Avatar,
   Row,
   Col,
+  InputNumber,
 } from '@douyinfe/semi-ui';
 import {
   IconCreditCard,
@@ -55,6 +57,7 @@ const EditRedemptionModal = (props) => {
   const { t } = useTranslation();
   const isEdit = props.editingRedemption.id !== undefined;
   const [loading, setLoading] = useState(isEdit);
+  const [customDollar, setCustomDollar] = useState(null);
   const isMobile = useIsMobile();
   const formApiRef = useRef(null);
 
@@ -308,7 +311,7 @@ const EditRedemptionModal = (props) => {
                         )}
                         showClear
                       />
-                      <div className='flex flex-wrap gap-2 mt-1'>
+                      <div className='flex flex-wrap gap-2 mt-1 items-center'>
                         {[
                           { value: 500000, label: '$1' },
                           { value: 5000000, label: '$10' },
@@ -323,11 +326,31 @@ const EditRedemptionModal = (props) => {
                             type={values.quota === item.value ? 'solid' : 'ghost'}
                             size='large'
                             style={{ cursor: 'pointer' }}
-                            onClick={() => formApiRef.current?.setValue('quota', item.value)}
+                            onClick={() => {
+                              setCustomDollar(null);
+                              formApiRef.current?.setValue('quota', item.value);
+                            }}
                           >
                             {item.label}
                           </Tag>
                         ))}
+                        <InputNumber
+                          prefix='$'
+                          size='small'
+                          min={0.01}
+                          step={1}
+                          precision={2}
+                          placeholder={t('自定义金额')}
+                          value={customDollar}
+                          style={{ width: 140 }}
+                          onChange={(val) => {
+                            setCustomDollar(val);
+                            if (val && val > 0) {
+                              const tokenVal = renderUnitWithQuota(val);
+                              formApiRef.current?.setValue('quota', tokenVal);
+                            }
+                          }}
+                        />
                       </div>
                     </Col>
                     {!isEdit && (

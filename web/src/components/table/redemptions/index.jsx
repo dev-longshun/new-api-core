@@ -46,6 +46,7 @@ const RedemptionsPage = () => {
     batchCopyRedemptions,
     batchDeleteSelectedRedemptions,
     batchDeleteRedemptions,
+    selectByName,
 
     // Filters state
     formInitValues,
@@ -89,6 +90,7 @@ const RedemptionsPage = () => {
               batchCopyRedemptions={batchCopyRedemptions}
               batchDeleteSelectedRedemptions={batchDeleteSelectedRedemptions}
               batchDeleteRedemptions={batchDeleteRedemptions}
+              selectByName={selectByName}
               t={t}
             />
 

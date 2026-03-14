@@ -194,8 +194,26 @@ export const useRedemptionsData = () => {
     }
   };
 
-  // Row selection configuration
+  // Select all rows matching the search keyword by name
+  const selectByName = () => {
+    const { searchKeyword } = getFormValues();
+    if (!searchKeyword) {
+      showError(t('请先输入搜索关键字'));
+      return;
+    }
+    const matched = redemptions.filter(
+      (r) => r.name && r.name.includes(searchKeyword),
+    );
+    if (matched.length === 0) {
+      showError(t('当前页没有匹配的兑换码'));
+      return;
+    }
+    setSelectedKeys(matched);
+  };
+
+  // Row selection configuration (controlled)
   const rowSelection = {
+    selectedRowKeys: selectedKeys.map((r) => r.key),
     onSelect: (record, selected) => {},
     onSelectAll: (selected, selectedRows) => {},
     onChange: (selectedRowKeys, selectedRows) => {
@@ -385,6 +403,7 @@ export const useRedemptionsData = () => {
     batchCopyRedemptions,
     batchDeleteSelectedRedemptions,
     batchDeleteRedemptions,
+    selectByName,
 
     // Translation function
     t,
