@@ -48,7 +48,7 @@ const Sidebar = ({ activePage, onNavigate, open, onClose }) => {
   return (
     <aside className={`hp-sidebar${open ? ' open' : ''}`}>
       <div className="hp-logo">
-        <span className="hp-logo-icon" aria-hidden="true">◎</span>
+        <img className="hp-logo-icon" src="/hp-logo.jpg" alt="Logo" />
         <div className="hp-logo-text">
           <strong>{t('hp_logo_title')}</strong>
           <small>{t('hp_logo_subtitle')}</small>
