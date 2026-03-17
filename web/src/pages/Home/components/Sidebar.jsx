@@ -6,7 +6,6 @@ const NAV_GROUPS = [
     labelKey: 'hp_nav_required',
     items: [
       { id: 'intro', labelKey: 'hp_nav_intro' },
-      { id: 'advantage', labelKey: 'hp_nav_advantage' },
     ],
   },
   {

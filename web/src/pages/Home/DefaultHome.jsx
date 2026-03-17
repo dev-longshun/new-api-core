@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { getServerAddress } from '../../helpers/token';
 import Sidebar from './components/Sidebar';
 import IntroPage from './pages/IntroPage';
-import AdvantagePage from './pages/AdvantagePage';
 import StartPage from './pages/StartPage';
 import ConfigPage from './pages/ConfigPage';
 import DowngradePage from './pages/DowngradePage';
@@ -14,7 +13,6 @@ import CommandsPage from './pages/CommandsPage';
 
 const PAGES = {
   intro: IntroPage,
-  advantage: AdvantagePage,
   start: StartPage,
   config: ConfigPage,
   downgrade: DowngradePage,
