@@ -19,8 +19,9 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React from 'react';
 import { Button } from '@douyinfe/semi-ui';
+import { isRoot } from '../../../helpers';
 
-const UsersActions = ({ setShowAddUser, t }) => {
+const UsersActions = ({ setShowAddUser, setShowResetAllQuota, t }) => {
   // Add new user
   const handleAddUser = () => {
     setShowAddUser(true);
@@ -31,6 +32,16 @@ const UsersActions = ({ setShowAddUser, t }) => {
       <Button className='w-full md:w-auto' onClick={handleAddUser} size='small'>
         {t('添加用户')}
       </Button>
+      {isRoot() && (
+        <Button
+          className='w-full md:w-auto'
+          type='danger'
+          onClick={() => setShowResetAllQuota(true)}
+          size='small'
+        >
+          {t('清空所有用户额度')}
+        </Button>
+      )}
     </div>
   );
 };

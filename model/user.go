@@ -932,6 +932,11 @@ func DeltaUpdateUserQuota(id int, delta int) (err error) {
 	}
 }
 
+func ResetAllCommonUserQuota() (int64, error) {
+	result := DB.Model(&User{}).Where("role = ?", common.RoleCommonUser).Update("quota", 0)
+	return result.RowsAffected, result.Error
+}
+
 //func GetRootUserEmail() (email string) {
 //	DB.Model(&User{}).Where("role = ?", common.RoleRootUser).Select("email").Find(&email)
 //	return email
