@@ -37,6 +37,7 @@ import {
   showSuccess,
   showWarning,
 } from '../../../helpers';
+import QuotaTracker from '../../../components/table/settings/QuotaTracker';
 
 const { Text } = Typography;
 
@@ -256,6 +257,7 @@ export default function SettingsLog(props) {
           </Form.Section>
         </Form>
       </Spin>
+      <QuotaTracker t={t} />
     </>
   );
 }
