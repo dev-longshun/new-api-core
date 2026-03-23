@@ -1259,3 +1259,21 @@ func DeleteDisabledUsers(c *gin.Context) {
 		"Count": count,
 	})
 }
+
+func GetUsersTotalQuota(c *gin.Context) {
+	totalQuota, err := model.GetNormalUsersTotalRemainingQuota()
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "",
+		"data": gin.H{
+			"quota": totalQuota,
+		},
+	})
+}

@@ -17,19 +17,67 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 
-import React from 'react';
-import { Typography } from '@douyinfe/semi-ui';
-import { IconUserAdd } from '@douyinfe/semi-icons';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Typography, Spin } from '@douyinfe/semi-ui';
+import { IconUserAdd, IconRefresh } from '@douyinfe/semi-icons';
 import CompactModeToggle from '../../common/ui/CompactModeToggle';
+import { API, showError, isRoot } from '../../../helpers';
+import { renderQuota } from '../../../helpers/render';
 
 const { Text } = Typography;
 
 const UsersDescription = ({ compactMode, setCompactMode, t }) => {
+  const [totalQuota, setTotalQuota] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const root = isRoot();
+
+  const fetchTotalQuota = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await API.get('/api/user/total_quota');
+      const { success, data } = res.data;
+      if (success) {
+        setTotalQuota(data.quota);
+      }
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (root) {
+      fetchTotalQuota();
+    }
+  }, [root, fetchTotalQuota]);
+
   return (
     <div className='flex flex-col md:flex-row justify-between items-start md:items-center gap-2 w-full'>
-      <div className='flex items-center text-blue-500'>
-        <IconUserAdd className='mr-2' />
-        <Text>{t('用户管理')}</Text>
+      <div className='flex items-center gap-4'>
+        <div className='flex items-center text-blue-500'>
+          <IconUserAdd className='mr-2' />
+          <Text>{t('用户管理')}</Text>
+        </div>
+        {root && (
+          <div className='flex items-center gap-1 text-grey-500'>
+            <Text size='small' type='tertiary'>
+              {t('普通用户剩余额度总计')}:
+            </Text>
+            {loading ? (
+              <Spin size='small' />
+            ) : (
+              <Text size='small' type='tertiary' strong>
+                {totalQuota !== null ? renderQuota(totalQuota) : '-'}
+              </Text>
+            )}
+            <IconRefresh
+              size='small'
+              style={{ cursor: 'pointer', marginLeft: 2 }}
+              onClick={fetchTotalQuota}
+            />
+          </div>
+        )}
       </div>
       <CompactModeToggle
         compactMode={compactMode}

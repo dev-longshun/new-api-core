@@ -188,6 +188,15 @@ func GetMaxUserId() int {
 	return user.Id
 }
 
+func GetNormalUsersTotalRemainingQuota() (int64, error) {
+	var totalQuota int64
+	err := DB.Model(&User{}).
+		Where("role < ?", common.RoleAdminUser).
+		Select("COALESCE(SUM(quota), 0)").
+		Scan(&totalQuota).Error
+	return totalQuota, err
+}
+
 func GetAllUsers(pageInfo *common.PageInfo) (users []*User, total int64, err error) {
 	// Start transaction
 	tx := DB.Begin()
