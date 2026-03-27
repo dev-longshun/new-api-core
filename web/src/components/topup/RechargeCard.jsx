@@ -571,7 +571,7 @@ const RechargeCard = ({
               </Avatar>
               <div className='min-w-0'>
                 <Typography.Text strong className='block truncate'>
-                  {t('第三方充值')}
+                  {t('购买兑换码')}
                 </Typography.Text>
                 <Typography.Text
                   type='tertiary'
