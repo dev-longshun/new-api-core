@@ -253,6 +253,17 @@ const renderResponseTime = (responseTime, t) => {
   }
 };
 
+const renderRelativeTime = (timestamp, t) => {
+  if (!timestamp || timestamp === 0) return null;
+  const now = Math.floor(Date.now() / 1000);
+  const diff = now - timestamp;
+  if (diff < 0) return null;
+  if (diff < 60) return t('刚刚');
+  if (diff < 3600) return Math.floor(diff / 60) + t('分钟前');
+  if (diff < 86400) return Math.floor(diff / 3600) + t('小时前');
+  return Math.floor(diff / 86400) + t('天前');
+};
+
 const isRequestPassThroughEnabled = (record) => {
   if (!record || record.children !== undefined) {
     return false;
@@ -502,13 +513,14 @@ export const getChannelsColumns = ({
           let otherInfo = JSON.parse(record.other_info);
           let reason = otherInfo['status_reason'];
           let time = otherInfo['status_time'];
+          let tooltipContent = t('原因：') + reason + t('，时间：') + timestamp2string(time);
+          const relTime = renderRelativeTime(record.test_time, t);
+          if (relTime) {
+            tooltipContent += t('，最近测试：') + relTime;
+          }
           return (
             <div>
-              <Tooltip
-                content={
-                  t('原因：') + reason + t('，时间：') + timestamp2string(time)
-                }
-              >
+              <Tooltip content={tooltipContent}>
                 {renderStatus(text, record.channel_info, t)}
               </Tooltip>
             </div>
@@ -522,7 +534,19 @@ export const getChannelsColumns = ({
       key: COLUMN_KEYS.RESPONSE_TIME,
       title: t('响应时间'),
       dataIndex: 'response_time',
-      render: (text, record, index) => <div>{renderResponseTime(text, t)}</div>,
+      render: (text, record, index) => {
+        const relTime = renderRelativeTime(record.test_time, t);
+        return (
+          <div>
+            {renderResponseTime(text, t)}
+            {relTime && (
+              <div style={{ fontSize: 11, color: 'var(--semi-color-text-2)', marginTop: 2 }}>
+                {relTime}
+              </div>
+            )}
+          </div>
+        );
+      },
     },
     {
       key: COLUMN_KEYS.BALANCE,
