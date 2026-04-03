@@ -3336,12 +3336,12 @@ const EditChannelModal = (props) => {
                     />
 
                     {/* Batch Model Import Section */}
-                    <div className='mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200'>
-                      <div className='mb-3'>
+                    <div className='mt-4'>
+                      <div className='mb-2'>
                         <Text className='text-sm font-medium'>
                           {t('批量添加模型')}
                         </Text>
-                        <div className='text-xs text-gray-500 mt-1'>
+                        <div className='text-xs text-semi-color-text-2 mt-1'>
                           {t('支持每行一个模型，空行自动忽略')}
                         </div>
                       </div>
@@ -3349,13 +3349,27 @@ const EditChannelModal = (props) => {
                         value={batchModelText}
                         onChange={(e) => setBatchModelText(e.target.value)}
                         placeholder={t('每行输入一个模型名称，支持批量粘贴\n例如：\nclaude-haiku-4-5\nclaude-opus-4-6-thinking\nglm-4.6')}
-                        className='w-full p-2 border border-gray-300 rounded text-sm font-mono resize-vertical'
-                        style={{ minHeight: '100px', maxHeight: '300px' }}
+                        className='w-full p-3 rounded text-sm font-mono resize-vertical'
+                        style={{
+                          minHeight: '100px',
+                          maxHeight: '300px',
+                          backgroundColor: 'var(--semi-color-bg-1)',
+                          color: 'var(--semi-color-text-0)',
+                          border: '1px solid var(--semi-color-border)',
+                          fontFamily: 'monospace',
+                        }}
                       />
                       {batchModelErrors.length > 0 && (
-                        <div className='mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-700'>
+                        <div
+                          className='mt-2 p-3 rounded text-xs'
+                          style={{
+                            backgroundColor: 'var(--semi-color-warning-light-bg)',
+                            color: 'var(--semi-color-warning)',
+                            border: '1px solid var(--semi-color-warning-light-border)',
+                          }}
+                        >
                           {t('以下模型已存在，已跳过：')}
-                          <span className='font-medium'>{batchModelErrors.join('、')}</span>
+                          <span className='font-medium ml-1'>{batchModelErrors.join('、')}</span>
                         </div>
                       )}
                       <Space className='mt-3'>
