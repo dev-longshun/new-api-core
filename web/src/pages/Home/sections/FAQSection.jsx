@@ -5,8 +5,8 @@ import { ChevronDown } from 'lucide-react';
 
 const FAQ_ITEMS = [
   {
-    q: 'RabbitCode 是什么？',
-    a: 'RabbitCode 是企业级 AI API 中转站，基于开源 New API 二次开发，聚合 40+ 上游供应商，提供统一 API 和全球加速。',
+    q: 'New API 是什么？',
+    a: 'New API 是企业级 AI API 中转站，聚合 40+ 上游供应商，提供统一 API 和全球加速。',
   },
   {
     q: '支持哪些模型？',

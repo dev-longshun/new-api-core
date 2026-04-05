@@ -4,12 +4,12 @@ import { ArrowRight } from 'lucide-react';
 
 const TERMINAL_LINES = [
   { type: 'dim', text: '# Configure your AI coding tool' },
-  { type: 'cmd', text: '$ export BASE_URL=https://rabbitcodecc.com/v1' },
+  { type: 'cmd', text: '$ export BASE_URL=https://your-domain.com/v1' },
   { type: 'cmd', text: '$ export API_KEY="sk-****************"' },
   { type: 'empty' },
   { type: 'dim', text: '# Start coding' },
   { type: 'cmd', text: '$ claude' },
-  { type: 'ok', text: '✓ Connected to RabbitCode API' },
+  { type: 'ok', text: '✓ Connected to New API' },
 ];
 
 const MODELS = [
@@ -44,7 +44,7 @@ const HeroSection = () => {
             className='text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] mb-4'
             style={{ color: 'var(--ld-text-strong)', letterSpacing: '-0.02em' }}
           >
-            RabbitCode
+            New API
           </h1>
           <h2
             className='text-xl sm:text-2xl font-light mb-6'
@@ -185,7 +185,7 @@ const TerminalTyping = () => {
         <span
           style={{ marginLeft: 8, fontSize: 11, color: '#444', letterSpacing: '0.1em' }}
         >
-          RABBITCODE.SH
+          NEW-API.SH
         </span>
       </div>
       <div className='ld-terminal-body' ref={bodyRef}>
